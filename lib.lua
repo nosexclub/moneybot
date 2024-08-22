@@ -622,8 +622,7 @@ Library.Sections.__index = Library.Sections;
 		--
 		function Library:SetOpen(bool)
 			if typeof(bool) == 'boolean' then
-				isVisible = not isVisible
-        		toggleFadeAllGuiElements(ScreenGui, isVisible, 0.5)
+        		toggleFadeAllGuiElements(ScreenGui, boolean, 0.5)
 			end
 		end;
 		--
