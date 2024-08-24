@@ -575,54 +575,10 @@ Library.Sections.__index = Library.Sections;
 			end
 		end
 		--
-		local function createTween(guiElement, propertyTable, duration)
-			local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-			local tween = TweenService:Create(guiElement, tweenInfo, propertyTable)
-			return tween
-		end
-		--
-		local function fadeGuiElement(guiElement, fadeIn, duration)
-			local targetTransparency = fadeIn and 0 or 1
-		
-			if guiElement:IsA("Frame") or guiElement:IsA("ImageLabel") or guiElement:IsA("ImageButton") then
-				local tween = createTween(guiElement, { BackgroundTransparency = targetTransparency }, duration)
-				tween:Play()
-			end
-		
-			if guiElement:IsA("TextLabel") or guiElement:IsA("TextButton") then
-				local tween = createTween(guiElement, { TextTransparency = targetTransparency }, duration)
-				tween:Play()
-			end
-		
-			if guiElement:IsA("ImageLabel") or guiElement:IsA("ImageButton") then
-				local tween = createTween(guiElement, { ImageTransparency = targetTransparency }, duration)
-				tween:Play()
-			end
-		
-			for _, child in ipairs(guiElement:GetChildren()) do
-				if child:IsA("UIStroke") then
-					local tween = createTween(child, { Transparency = NumberRange.new(targetTransparency) }, duration)
-					tween:Play()
-				elseif child:IsA("UIGradient") then
-					local tween = createTween(child, { Transparency = targetTransparency }, duration)
-					tween:Play()
-				elseif child:IsA("UIAspectRatioConstraint") or child:IsA("UIScale") or child:IsA("UIListLayout") or child:IsA("UIGridLayout") then
-					child.Enabled = fadeIn
-				end
-			end
-		end
-		--
-		local function toggleFadeAllGuiElements(parent, fadeIn, duration)
-			for _, guiElement in ipairs(parent:GetDescendants()) do
-				if guiElement:IsA("GuiObject") or guiElement:IsA("UIStroke") or guiElement:IsA("UIGradient") or guiElement:IsA("UIAspectRatioConstraint") then
-					fadeGuiElement(guiElement, fadeIn, duration)
-				end
-			end
-		end
-		--
 		function Library:SetOpen(bool)
 			if typeof(bool) == 'boolean' then
-        		toggleFadeAllGuiElements(ScreenGui, boolean, 0.5)
+        		Library.Open = bool;
+			Library.Holder.Visible = bool;
 			end
 		end;
 		--
